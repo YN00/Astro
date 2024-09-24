@@ -1,6 +1,9 @@
 node_modules
+.astro
 .idea
 .vscode
 dist
+github
 
 README.md
+.gitignore
