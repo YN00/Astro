@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   docker:
-    container_name: pa
+    container_name: kiara
     build:
       context: .
       dockerfile: Dockerfile
