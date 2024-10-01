@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from 'react';
+import React, { useState, useCallback, memo, useEffect } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -18,6 +18,11 @@ const worldBounds = {
   west: -180, // 서쪽 경계 (-180도)
 };
 
+interface GoogleMapsProps {
+  mapKey: string;
+  children?: React.ReactNode;
+}
+
 function GoogleMaps({ mapKey, children }: GoogleMapsProps) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -27,6 +32,7 @@ function GoogleMaps({ mapKey, children }: GoogleMapsProps) {
   });
 
   const [map, setMap] = useState(null);
+  const [putMarker, setPutMarker] = useState<typeof center | null>(null);
 
   const onLoad = useCallback(function callback(map: any) {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -47,10 +53,13 @@ function GoogleMaps({ mapKey, children }: GoogleMapsProps) {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
-      zoom={3}
       onLoad={onLoad}
       onUnmount={onUnmount}
+      onClick={(e) => {
+        setPutMarker(e.latLng?.toJSON());
+      }}
       options={{
+        zoom: 5,
         minZoom: 3,
         streetView: null,
         disableDefaultUI: true,
@@ -61,6 +70,8 @@ function GoogleMaps({ mapKey, children }: GoogleMapsProps) {
       }}
     >
       {children}
+
+      {putMarker && <Marker position={putMarker} />}
 
       <Marker position={center} />
     </GoogleMap>
