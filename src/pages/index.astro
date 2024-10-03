@@ -2,18 +2,11 @@
 import { GOOGLE_MAP_KEY } from 'astro:env/client';
 
 import Layout from '../layouts/Layout.astro';
-import GoogleMaps from '../widgets/GoogleMaps';
-import SelectLocale from '../shared/SelectLocale.vue';
-
-const onChangeLang = (lang: string) => {
-  console.log(lang);
-};
+import MainMap from '../components/widgets/map/MainMap';
 ---
 
 <Layout title="Only for Kiara">
-  <GoogleMaps client:load mapKey={GOOGLE_MAP_KEY}>
-    <SelectLocale client:load on:onChangeLang={onChangeLang} />
-  </GoogleMaps>
+  <MainMap client:load mapKey={GOOGLE_MAP_KEY} />
 </Layout>
 
 <style>

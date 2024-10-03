@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo, useEffect } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
@@ -21,9 +21,10 @@ const worldBounds = {
 interface GoogleMapsProps {
   mapKey: string;
   children?: React.ReactNode;
+  onClickMap?: (e: MapMouseEvent) => void;
 }
 
-function GoogleMaps({ mapKey, children }: GoogleMapsProps) {
+function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: mapKey,
@@ -32,7 +33,6 @@ function GoogleMaps({ mapKey, children }: GoogleMapsProps) {
   });
 
   const [map, setMap] = useState(null);
-  const [putMarker, setPutMarker] = useState<typeof center | null>(null);
 
   const onLoad = useCallback(function callback(map: any) {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -49,29 +49,27 @@ function GoogleMaps({ mapKey, children }: GoogleMapsProps) {
     return <></>;
   }
 
+  const options = {
+    zoom: 5,
+    minZoom: 3,
+    streetView: null,
+    disableDefaultUI: true,
+    restriction: {
+      latLngBounds: worldBounds, // 지정된 영역
+      strictBounds: false, // 엄격한 제한 적용
+    },
+  };
+
   return (
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={center}
+      onClick={onClickMap}
+      options={options}
       onLoad={onLoad}
       onUnmount={onUnmount}
-      onClick={(e) => {
-        setPutMarker(e.latLng?.toJSON());
-      }}
-      options={{
-        zoom: 5,
-        minZoom: 3,
-        streetView: null,
-        disableDefaultUI: true,
-        restriction: {
-          latLngBounds: worldBounds, // 지정된 영역
-          strictBounds: false, // 엄격한 제한 적용
-        },
-      }}
     >
       {children}
-
-      {putMarker && <Marker position={putMarker} />}
 
       <Marker position={center} />
     </GoogleMap>
