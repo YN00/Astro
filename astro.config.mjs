@@ -6,6 +6,7 @@ import svelte from '@astrojs/svelte';
 import sitemap from '@astrojs/sitemap';
 import astroI18next from 'astro-i18next';
 import { loadEnv } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 import starlight from '@astrojs/starlight';
 
 const env = loadEnv(process.env.NODE_ENV, process.cwd(), '');
@@ -15,6 +16,7 @@ export default defineConfig({
   integrations: [
     react(),
     vue({ devtools: true }),
+    VitePWA(),
     tailwind(),
     svelte(),
     sitemap(),
