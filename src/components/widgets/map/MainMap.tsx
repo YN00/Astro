@@ -1,8 +1,5 @@
 import { useEffect, useState } from 'react';
-
-import GoogleMaps from '../../shared/GoogleMaps.tsx';
-import CustomMarker from '../../shared/CustomMarker.tsx';
-import CustomInfoWindow from '../../shared/CustomInfoWindow.tsx';
+import { GoogleMaps, CustomInfoWindow, CustomMarker } from '../../features/map';
 
 interface Props {
   mapKey: string;
@@ -25,7 +22,9 @@ function MainMap({ mapKey }: Props) {
       <GoogleMaps mapKey={mapKey} onClickMap={onClickMap}>
         {putMarker && (
           <CustomMarker position={putMarker} onClick={onClickPin}>
-            <CustomInfoWindow position={putMarker}>test</CustomInfoWindow>
+            <CustomInfoWindow position={putMarker}>
+              testtesttesttesttest
+            </CustomInfoWindow>
           </CustomMarker>
         )}
       </GoogleMaps>

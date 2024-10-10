@@ -7,12 +7,10 @@ interface Props {
   onClick?: (e: any) => void;
 }
 
-function CustomMarker({ position, children, onClick }: Props) {
+export function CustomMarker({ position, children, onClick }: Props) {
   return (
     <Marker position={position} onClick={onClick}>
       {children}
     </Marker>
   );
 }
-
-export default CustomMarker;

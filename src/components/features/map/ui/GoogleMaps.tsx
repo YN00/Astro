@@ -24,7 +24,7 @@ interface GoogleMapsProps {
   onClickMap?: (e: MapMouseEvent) => void;
 }
 
-function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
+export function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: mapKey,
@@ -75,5 +75,3 @@ function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
     </GoogleMap>
   );
 }
-
-export default memo(GoogleMaps);

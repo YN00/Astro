@@ -6,12 +6,14 @@ interface Props {
   children?: React.ReactNode;
 }
 
-function CustomInfoWindow({ position, children }: Props) {
+export function CustomInfoWindow({ position, children }: Props) {
   return (
-    <InfoWindow position={position}>
+    <InfoWindow
+      position={position}
+      options={{ pixelOffset: new window.google.maps.Size(0, -40) }}
+      onCloseClick={() => {}}
+    >
       <>{children}</>
     </InfoWindow>
   );
 }
-
-export default CustomInfoWindow;
