@@ -1,0 +1,97 @@
+name: Deploy kiara-fe on Prod
+
+on:
+  push:
+    branches: ["main"],
+    paths:
+      - .github/workflows/deploy-prod.yml
+      - Dockerfile
+
+env:
+  # AWS Environment
+  AWS_REGION: ap-northeast-1
+
+  # ECS Environment #Prod용으로 교체 필요
+  ECR_REGISTRY: 577638370355.dkr.ecr.ap-northeast-1.amazonaws.com
+  ECS_CLUSTER: kiara_fe #itall-cluster
+
+  # Homepage Environment
+  DOCKERFILE_PATH: ./Dockerfile
+  ECR_REPOSITORY: kiara
+  ECS_TASK_DEFINITION: kiara_fe_task_def #itall_manager-fe_task_definition
+  ECS_CONTAINER_NAME: kiara_container #itall_manager-fe_service
+  ECS_SERVICE: kiara_container #itall_manager-fe_service
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: develop
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Generate .env
+        run: |
+          echo "PUBLIC_GOOGLE_MAP_KEY=PUBLIC_GOOGLE_MAP_KEY" >> .env
+        env:
+          PUBLIC_GOOGLE_MAP_KEY: ${{ secrets.PUBLIC_GOOGLE_MAP_KEY }}
+
+      - name: Build
+        working-directory: .
+        run: |
+          pnpm build
+        env:
+          NODE_OPTIONS: "--max_old_space_size=3000"
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_PROD }} # github repository에 GitAction accessKey, secretKey 넣아야됨
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_PROD }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Log in to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push image
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f $DOCKERFILE_PATH .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Download Task Definition Template
+        run: |
+          aws ecs describe-task-definition \
+            --task-definition ${{ env.ECS_TASK_DEFINITION }} \
+            --query taskDefinition \
+            > task-definition.json
+
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: task-definition.json
+          container-name: ${{ env.ECS_CONTAINER_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true

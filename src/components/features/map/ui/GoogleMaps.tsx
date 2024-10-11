@@ -21,10 +21,10 @@ const worldBounds = {
 interface GoogleMapsProps {
   mapKey: string;
   children?: React.ReactNode;
-  onClickMap?: (e: MapMouseEvent) => void;
+  onClickMap?: (e: any) => void;
 }
 
-export function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
+function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: mapKey,
@@ -75,3 +75,5 @@ export function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
     </GoogleMap>
   );
 }
+
+export const Map = memo(GoogleMaps);

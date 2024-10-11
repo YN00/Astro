@@ -1,4 +1,4 @@
-import type { MainfestOptions } from 'vite-plugin-pwa';
+import type { ManifestOptions } from 'vite-plugin-pwa';
 
 export const seoConfig = {
   baseURL: '',
@@ -12,7 +12,7 @@ export const seoConfig = {
   siteName: 'Only for Kiara',
 };
 
-export const manifest: Partial<MainfestOptions> = {
+export const manifest: Partial<ManifestOptions> = {
   name: 'Only for Kiara',
   short_name: 'kiara',
   description: 'Takanashi Kiara fan comment site',
