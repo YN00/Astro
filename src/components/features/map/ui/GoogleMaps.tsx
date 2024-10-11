@@ -32,7 +32,7 @@ function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
     libraries: ['geocoding', 'geometry', 'visualization', 'drawing', 'places'],
   });
 
-  const [map, setMap] = useState(null);
+  const [_, setMap] = useState(null);
 
   const onLoad = useCallback(function callback(map: any) {
     const bounds = new window.google.maps.LatLngBounds(center);

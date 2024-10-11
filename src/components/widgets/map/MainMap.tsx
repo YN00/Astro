@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Map, CustomInfoWindow, CustomMarker } from '../../features/map';
 
 interface Props {

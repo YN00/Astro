@@ -1,4 +1,4 @@
-FROM node:18.20-alpine as base
+FROM node:22-alpine as base
 
 WORKDIR /app
 RUN npm i -g pnpm
