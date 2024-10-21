@@ -8,11 +8,14 @@ import astroI18next from 'astro-i18next';
 import { loadEnv } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import starlight from '@astrojs/starlight';
+import vercel from '@astrojs/vercel/serverless';
 
 const env = loadEnv(process.env.NODE_ENV, process.cwd(), '');
 
 // https://astro.build/config
 export default defineConfig({
+  output: 'server',
+  adapter: vercel(),
   integrations: [
     react(),
     vue({ devtools: true }),
