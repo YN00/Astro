@@ -1,16 +1,28 @@
 import React from 'react';
-import { Marker } from '@react-google-maps/api';
+import { Marker, type MarkerProps } from '@react-google-maps/api';
 
-interface Props {
-  position: { lat: number; lng: number };
+interface Props extends MarkerProps {
   children?: React.ReactNode;
-  onClick?: (e: any) => void;
 }
 
-export function CustomMarker({ position, children, onClick }: Props) {
-  return (
-    <Marker position={position} onClick={onClick}>
-      {children}
-    </Marker>
-  );
+export function CustomMarker({ children, ...markerProps }: Props) {
+  const markerIcon = '/src/assets/images/bnl.png';
+
+  const markerOptions = {
+    ...markerProps,
+    opacity: 1,
+    icon: {
+      anchor: {
+        x: 55,
+        y: 55,
+      },
+      url: markerIcon,
+      scaledSize: {
+        width: 100,
+        height: 100,
+      },
+    },
+  } as MarkerProps;
+
+  return <Marker {...markerOptions}>{children}</Marker>;
 }

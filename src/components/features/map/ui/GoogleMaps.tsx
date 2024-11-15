@@ -1,5 +1,5 @@
 import React, { useState, useCallback, memo } from 'react';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 
 const containerStyle = {
   width: '100%',
@@ -29,7 +29,7 @@ function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
     id: 'google-map-script',
     googleMapsApiKey: mapKey,
     language: 'ko',
-    libraries: ['geocoding', 'geometry', 'visualization', 'drawing', 'places'],
+    // libraries: ['geocoding', 'geometry', 'visualization', 'drawing', 'places'],
   });
 
   const [_, setMap] = useState(null);
@@ -71,7 +71,7 @@ function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
     >
       {children}
 
-      <Marker position={center} />
+      {/*<Marker position={center} />*/}
     </GoogleMap>
   );
 }

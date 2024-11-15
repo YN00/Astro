@@ -1,25 +1,29 @@
 import { useState } from 'react';
+import { type MarkerProps } from '@react-google-maps/api';
 import { Map, CustomInfoWindow, CustomMarker } from '../../features/map';
+import './css/map.css';
 
 interface Props {
   mapKey: string;
 }
 
 function MainMap({ mapKey }: Props) {
-  const [putMarker, setPutMarker] = useState(null);
+  const [putMarker, setPutMarker] = useState<MarkerProps['position'] | null>(
+    null,
+  );
 
   const onClickMap = (e: any) => {
     const position = e.latLng?.toJSON();
     setPutMarker(position);
   };
 
-  const onClickPin = () => {
-    console.log('test');
+  const onClickPin = (e: any) => {
+    console.log('test', e);
   };
 
   return (
-    <>
-      <Map mapKey={mapKey} onClickMap={onClickMap}>
+    <Map mapKey={mapKey} onClickMap={onClickMap}>
+      <>
         {putMarker && (
           <CustomMarker position={putMarker} onClick={onClickPin}>
             <CustomInfoWindow position={putMarker}>
@@ -27,8 +31,8 @@ function MainMap({ mapKey }: Props) {
             </CustomInfoWindow>
           </CustomMarker>
         )}
-      </Map>
-    </>
+      </>
+    </Map>
   );
 }
 
