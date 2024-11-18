@@ -26,6 +26,9 @@ importers:
       '@astrojs/tailwind':
         specifier: ^5.1.2
         version: 5.1.2(astro@5.0.0-beta.5(@types/node@22.8.2)(lightningcss@1.27.0)(rollup@2.79.2)(terser@5.36.0)(typescript@5.6.3))(tailwindcss@3.4.14)
+      '@astrojs/ts-plugin':
+        specifier: ^1.10.4
+        version: 1.10.4
       '@astrojs/vercel':
         specifier: 8.0.0-beta.2
         version: 8.0.0-beta.2(astro@5.0.0-beta.5(@types/node@22.8.2)(lightningcss@1.27.0)(rollup@2.79.2)(terser@5.36.0)(typescript@5.6.3))(react@18.3.1)
@@ -216,6 +219,9 @@ packages:
   '@astrojs/telemetry@3.1.0':
     resolution: {integrity: sha512-/ca/+D8MIKEC8/A9cSaPUqQNZm+Es/ZinRv0ZAzvu2ios7POQSsVD+VOj7/hypWNsNM3T7RpfgNq7H2TU1KEHA==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
+
+  '@astrojs/ts-plugin@1.10.4':
+    resolution: {integrity: sha512-rapryQINgv5VLZF884R/wmgX3mM9eH1PC/I3kkPV9rP6lEWrRN1YClF3bGcDHFrf8EtTLc0Wqxne1Uetpevozg==}
 
   '@astrojs/vercel@8.0.0-beta.2':
     resolution: {integrity: sha512-luaXHkBP/pwTDFGxjrGw6L6lfE2fBc4pJxWPEupEq5PEtIk1gbOBajN4F51PZ27VGAoB0+1sZWK9c9O6tNuC8Q==}
@@ -5244,6 +5250,16 @@ snapshots:
       which-pm-runs: 1.1.0
     transitivePeerDependencies:
       - supports-color
+
+  '@astrojs/ts-plugin@1.10.4':
+    dependencies:
+      '@astrojs/compiler': 2.10.3
+      '@astrojs/yaml2ts': 0.2.2
+      '@jridgewell/sourcemap-codec': 1.5.0
+      '@volar/language-core': 2.4.8
+      '@volar/typescript': 2.4.8
+      semver: 7.6.3
+      vscode-languageserver-textdocument: 1.0.12
 
   '@astrojs/vercel@8.0.0-beta.2(astro@5.0.0-beta.5(@types/node@22.8.2)(lightningcss@1.27.0)(rollup@2.79.2)(terser@5.36.0)(typescript@5.6.3))(react@18.3.1)':
     dependencies:

@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { type MarkerProps } from '@react-google-maps/api';
-import { Map, CustomInfoWindow, CustomMarker } from '../../features/map';
-import './css/map.css';
+import { Map } from '@widgets/map/ui/GoogleMaps.tsx';
+import { CustomInfoWindow } from '@widgets/map/ui/CustomInfoWindow.tsx';
+import { CustomMarker } from '@widgets/map/ui/CustomMarker.tsx';
+import '../css/map.css';
 
 interface Props {
   mapKey: string;
 }
 
-function MainMap({ mapKey }: Props) {
+export function MainMap({ mapKey }: Props) {
   const [putMarker, setPutMarker] = useState<MarkerProps['position'] | null>(
     null,
   );
@@ -35,5 +37,3 @@ function MainMap({ mapKey }: Props) {
     </Map>
   );
 }
-
-export default MainMap;

@@ -1,12 +1,10 @@
 ---
-import { GOOGLE_MAP_KEY } from 'astro:env/client';
-
-import Layout from '../layouts/Layout.astro';
-import MainMap from '../components/widgets/map/MainMap';
+import Layout from '@layouts/Layout.astro';
+import Home from '@app/home.astro';
 ---
 
 <Layout title="Only for Kiara">
-  <MainMap client:only="react" mapKey={GOOGLE_MAP_KEY} />
+  <Home />
 </Layout>
 
 <style>

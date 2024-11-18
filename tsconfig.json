@@ -3,6 +3,20 @@
   "compilerOptions": {
     "jsx": "preserve",
     "jsxImportSource": "react",
-    "target": "ESNext"
+    "target": "ESNext",
+    "verbatimModuleSyntax": true,
+    "plugins": [{
+      "name": "@astrojs/ts-plugin"
+    }],
+    "baseUrl": ".",
+    "paths": {
+      "@layouts/*": ["src/layouts/*"],
+      "@shared/*": ["src/components/shared/*"],
+      "@entities/*": ["src/components/entities/*"],
+      "@features/*": ["src/components/features/*"],
+      "@widgets/*": ["src/components/widgets/*"],
+      "@pages/*": ["src/components/pages/*"],
+      "@app/*": ["src/components/app/*"]
+    }
   }
 }
