@@ -31,8 +31,6 @@ function GoogleMaps({ children, onClickMap }: GoogleMapsProps) {
     // libraries: ['geocoding', 'geometry', 'visualization', 'drawing', 'places'],
   });
 
-  console.log(import.meta.env.PUBLIC_GOOGLE_MAP_KEY);
-
   const [_, setMap] = useState(null);
 
   const onLoad = useCallback(function callback(map: any) {
