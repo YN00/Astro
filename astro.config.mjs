@@ -1,22 +1,23 @@
 import { defineConfig, envField } from 'astro/config';
+import { loadEnv } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
+
 import react from '@astrojs/react';
 import vue from '@astrojs/vue';
 import tailwind from '@astrojs/tailwind';
 import svelte from '@astrojs/svelte';
+import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import astroI18next from 'astro-i18next';
-import { loadEnv } from 'vite';
-import { VitePWA } from 'vite-plugin-pwa';
-import vercel from '@astrojs/vercel/serverless';
 
-import mdx from '@astrojs/mdx';
+// import vercel from '@astrojs/vercel/serverless';
 
 const env = loadEnv(process.env.NODE_ENV, process.cwd(), '');
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server',
-  adapter: vercel(),
+  // output: 'server',
+  // adapter: vercel(),
   integrations: [
     react(),
     vue({ devtools: true }),
@@ -25,25 +26,6 @@ export default defineConfig({
     svelte(),
     sitemap(),
     astroI18next(),
-    // starlight({
-    //   title: 'My Docs',
-    //   social: {
-    //     github: 'https://github.com/withastro/starlight',
-    //   },
-    //   sidebar: [
-    //     {
-    //       label: 'Guides',
-    //       items: [
-    //         // Each item here is one entry in the navigation menu.
-    //         { label: 'Example Guide', slug: 'guides/example' },
-    //       ],
-    //     },
-    //     {
-    //       label: 'Reference',
-    //       autogenerate: { directory: 'reference' },
-    //     },
-    //   ],
-    // }),
     mdx(),
   ],
   env: {

@@ -8,5 +8,5 @@ services:
       dockerfile: Dockerfile
 #    platform: linux/amd64
     ports:
-      - "8000:3000"
+      - "8000:9010"
     restart: always

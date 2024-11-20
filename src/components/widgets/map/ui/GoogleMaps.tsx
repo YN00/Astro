@@ -19,18 +19,19 @@ const worldBounds = {
 };
 
 interface GoogleMapsProps {
-  mapKey: string;
   children?: React.ReactNode;
   onClickMap?: (e: any) => void;
 }
 
-function GoogleMaps({ mapKey, children, onClickMap }: GoogleMapsProps) {
+function GoogleMaps({ children, onClickMap }: GoogleMapsProps) {
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: mapKey,
+    googleMapsApiKey: import.meta.env.PUBLIC_GOOGLE_MAP_KEY,
     language: 'ko',
     // libraries: ['geocoding', 'geometry', 'visualization', 'drawing', 'places'],
   });
+
+  console.log(import.meta.env.PUBLIC_GOOGLE_MAP_KEY);
 
   const [_, setMap] = useState(null);
 

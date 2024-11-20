@@ -1,7 +1,6 @@
 ---
-import { GOOGLE_MAP_KEY } from "astro:env/client";
-import {MainMap} from "@widgets/map";
+import { MainMap } from "@widgets/map";
 ---
 
-<MainMap client:only="react" mapKey={GOOGLE_MAP_KEY} />
+<MainMap client:only="react" />
 
