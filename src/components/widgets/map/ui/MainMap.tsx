@@ -1,13 +1,17 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { type MarkerProps } from '@react-google-maps/api';
 
 import { Map } from '@widgets/map/ui/GoogleMaps.tsx';
 import { CustomInfoWindow } from '@widgets/map/ui/CustomInfoWindow.tsx';
 import { CustomMarker } from '@widgets/map/ui/CustomMarker.tsx';
 
-import '../css/map.css';
+import '@widgets/map/scss/map.scss';
 
-export function MainMap() {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export function MainMap({ children }: Props) {
   const [putMarker, setPutMarker] = useState<MarkerProps['position'] | null>(
     null,
   );
@@ -28,6 +32,7 @@ export function MainMap() {
           <CustomMarker position={putMarker} onClick={onClickPin}>
             <CustomInfoWindow position={putMarker}>
               testtesttesttesttest
+              {children}
             </CustomInfoWindow>
           </CustomMarker>
         )}

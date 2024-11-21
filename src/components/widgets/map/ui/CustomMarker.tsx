@@ -6,8 +6,6 @@ interface Props extends MarkerProps {
 }
 
 export function CustomMarker({ children, ...markerProps }: Props) {
-  const markerIcon = '/src/assets/images/bnl.png';
-
   const markerOptions = {
     ...markerProps,
     opacity: 1,
@@ -16,7 +14,7 @@ export function CustomMarker({ children, ...markerProps }: Props) {
         x: 55,
         y: 55,
       },
-      url: markerIcon,
+      url: '/img/bnl.png',
       scaledSize: {
         width: 100,
         height: 100,

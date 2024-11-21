@@ -5,7 +5,6 @@ import { VitePWA } from 'vite-plugin-pwa';
 import react from '@astrojs/react';
 import vue from '@astrojs/vue';
 import tailwind from '@astrojs/tailwind';
-import svelte from '@astrojs/svelte';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import astroI18next from 'astro-i18next';
@@ -23,7 +22,6 @@ export default defineConfig({
     vue({ devtools: true }),
     VitePWA(),
     tailwind(),
-    svelte(),
     sitemap(),
     astroI18next(),
     mdx(),
@@ -36,6 +34,9 @@ export default defineConfig({
         default: env.PUBLIC_GOOGLE_MAP_KEY,
       }),
     },
+  },
+  image: {
+    domains: ['astro.build'],
   },
   vite: {
     build: {

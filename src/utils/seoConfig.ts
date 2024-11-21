@@ -2,20 +2,20 @@ import type { ManifestOptions } from 'vite-plugin-pwa';
 
 export const seoConfig = {
   baseURL: '',
-  description: 'Takanashi Kiara fan comment site',
+  description: 'Airi Kanna fan comment site',
   type: 'website',
   image: {
     url: '',
     width: 1200,
     height: 630,
   },
-  siteName: 'Only for Kiara',
+  siteName: 'Airi Kanna',
 };
 
 export const manifest: Partial<ManifestOptions> = {
-  name: 'Only for Kiara',
-  short_name: 'kiara',
-  description: 'Takanashi Kiara fan comment site',
+  name: 'Airi Kanna',
+  short_name: 'kanna',
+  description: 'Fan website for Airi Kanna',
   theme_color: '#ff6105',
   background_color: '#ff6105',
   display: 'standalone',
