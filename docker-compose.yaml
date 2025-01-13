@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+#  docker:
+#    container_name: kiara
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+##    platform: linux/amd64
+#    ports:
+#      - "8000:9010"
+#    restart: always
+  dev-docker:
+    # Dockerfile 위치 지정 (상대경로 주의)
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    container_name: kiara-dev-docker
+    # 호스트 디렉토리와 컨테이너 디렉토리를 연결 (소스 코드 실시간 반영)
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    ports:
+      - "8010:9010"
+      # 컨테이너가 실행되면 바로 Remix 개발 서버를 켜고 싶다면:
+      # command: pnpm dev
+      # 환경 변수를 지정할 수도 있음
+      # environment:
+      # NODE_ENV: development
+      # PORT: 5000
